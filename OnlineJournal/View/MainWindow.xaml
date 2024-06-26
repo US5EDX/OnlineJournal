@@ -1,0 +1,32 @@
+﻿<Window x:Class="OnlineJournal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OnlineJournal" xmlns:customcontrols="clr-namespace:OnlineJournal.CustomControls"
+        mc:Ignorable="d"
+        Title="Вхід" Height="210.8" Width="248.4"
+        Visibility="{Binding IsUserUnlogged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="boolToVis"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" HorizontalAlignment="Right">
+                <TextBlock Text="Пошта: " FontSize="14" VerticalAlignment="Center" />
+                <TextBox Text="{Binding Email}" Width="150" Height="25" VerticalContentAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" HorizontalAlignment="Right">
+                <TextBlock Text="Пароль: " FontSize="14" VerticalAlignment="Center" />
+                <customcontrols:BindablePasswordBox Height="25" Width="150" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+            <CheckBox IsChecked="{Binding IsChecked}"  Content="Запам'ятати мене" HorizontalAlignment="Center" FontSize="16" VerticalContentAlignment="Center" Margin="0,0,0,5" />
+            <Button Content="Увійти" Width="80" Height="30" Command="{Binding LogInCommand}" />
+            <TextBlock Text="Неправильна пошта або пароль" HorizontalAlignment="Center" FontSize="14" Foreground="Red" Visibility="{Binding IsVisible, Converter={StaticResource boolToVis}}" Margin="0,5,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,39 @@
+﻿<Page x:Class="OnlineJournal.View.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OnlineJournal.View" xmlns:customcontrols="clr-namespace:OnlineJournal.CustomControls"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:in="clr-namespace:OnlineJournal.Processings"
+      xmlns:vm="clr-namespace:OnlineJournal.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="773.6"
+      Title="HomePage">
+
+    <Page.Resources>
+        <in:InterprateRole x:Key="IntToStringConverter" />
+        <BooleanToVisibilityConverter x:Key="boolToVis"/>
+        <in:BoolInverter x:Key="InvertBool"/>
+
+        <DataTemplate DataType="{x:Type vm:UpdatePasswordPageViewModel }">
+            <local:UpdatePasswordPage />
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="{Binding HelloMessage}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" TextWrapping="Wrap" TextAlignment="Center" Margin="5,0,5,15" />
+                <Button Content="Оновити пароль" Margin="5,0,5,15" Command="{Binding UpdatePasswordCommand}"/>
+                <Button Content="Вийти для наступного входу" Margin="5,0,5,15" Command="{Binding LogoutCommand}" IsEnabled="{Binding IsLogoutVisible, UpdateSourceTrigger=PropertyChanged}"/>
+                <Frame Visibility="{Binding IsUpdatePasswordVisible, Converter={StaticResource boolToVis}}" Content="{Binding UpdatePasswordPage}" NavigationUIVisibility="Hidden"/>
+            </StackPanel>
+        </ScrollViewer>
+        <TextBlock Grid.Column="1" Text="Можливий в майбутньому новинний блок" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+    </Grid>
+</Page>
